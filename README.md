@@ -261,7 +261,6 @@ in the file.
 9. Finally, it saves the original data along with the predictions to a new CSV file and returns this file as the
    response.
 
-
 ### Download CSV Template
 
 This endpoint allows users to download a CSV template that matches the expected format for loan data input.
@@ -277,8 +276,8 @@ This endpoint doesn't require any parameters or request body.
 #### Response
 
 - **Success Response**:
-  - **Code**: 200 OK
-  - **Content**: A CSV file named "template.csv"
+    - **Code**: 200 OK
+    - **Content**: A CSV file named "template.csv"
 
 #### Functionality
 
@@ -286,10 +285,10 @@ This endpoint doesn't require any parameters or request body.
 2. It creates a CSV file named "template.csv" with these columns and 5 empty rows.
 3. It returns this CSV file as a downloadable response.
 
-
 ### Data Drift Features
 
-This endpoint retrieves a list of unique features that have experienced data drift, as recorded in the datadrift.log file.
+This endpoint retrieves a list of unique features that have experienced data drift, as recorded in the datadrift.log
+file.
 
 - **URL**: `/api/data-drift`
 - **Method**: GET
@@ -302,18 +301,18 @@ This endpoint doesn't require any parameters or request body.
 #### Response
 
 - **Success Response**:
-  - **Code**: 200 OK
-  - **Content**: 
-    ```json
-    {
-      "message": "Successfully retrieved drift update",
-      "data": [
-        "feature1",
-        "feature2"
-      ]
-    }
-    ```
-    The `data` field contains an array of strings, each representing a unique feature that has experienced drift.
+    - **Code**: 200 OK
+    - **Content**:
+      ```json
+      {
+        "message": "Successfully retrieved drift update",
+        "data": [
+          "feature1",
+          "feature2"
+        ]
+      }
+      ```
+      The `data` field contains an array of strings, each representing a unique feature that has experienced drift.
 
 #### Functionality
 
@@ -321,17 +320,16 @@ This endpoint doesn't require any parameters or request body.
 2. It extracts and compiles a list of unique features that have been logged as experiencing drift.
 3. It returns this list along with a success message.
 
-
-
 ## Model Analysis
 
 - Feature Importance: (Interpret model coefficients or feature importance's)
   ![My Image](project_navigation/feature_importance.png)
 
-
 ## Data Drift Detection
 
-Our system implements a robust mechanism for detecting data drift, which is crucial for maintaining model performance over time. We use a combination of statistical methods and logging to identify when input features deviate significantly from the training data distribution.
+Our system implements a robust mechanism for detecting data drift, which is crucial for maintaining model performance
+over time. We use a combination of statistical methods and logging to identify when input features deviate significantly
+from the training data distribution.
 
 ### Implementation
 
@@ -345,14 +343,17 @@ logger.setLevel(logging.INFO)
 handler = logging.FileHandler('datadrift.log')
 logger.addHandler(handler)
 
+
 def log_new_feature(feature_name, feature_value):
     logger.info(f"new - {feature_name}_{feature_value}")
 ```
 
-2. **Statistical Testing**: We periodically compare the distribution of recent data to the baseline distribution using the Kolmogorov-Smirnov test:
+2. **Statistical Testing**: We periodically compare the distribution of recent data to the baseline distribution using
+   the Kolmogorov-Smirnov test:
 
 ```python
 from scipy import stats
+
 
 def detect_drift(baseline_data, new_data, threshold=0.05):
     ks_statistic, p_value = stats.ks_2samp(baseline_data, new_data)
@@ -366,6 +367,7 @@ def detect_drift(baseline_data, new_data, threshold=0.05):
 ### Importance
 
 Detecting data drift is crucial for:
+
 - Identifying when the model needs retraining
 - Understanding changes in the underlying data distribution
 - Maintaining model accuracy and reliability over time
@@ -374,11 +376,14 @@ Detecting data drift is crucial for:
 
 While our loan default prediction model performs well in many scenarios, it's important to acknowledge its limitations:
 
-1. **Limited Historical Data**: The model may not perform well for unprecedented economic conditions not represented in the training data.
+1. **Limited Historical Data**: The model may not perform well for unprecedented economic conditions not represented in
+   the training data.
 
-2. **Feature Constraints**: The model relies on a fixed set of features and may not capture all relevant factors influencing loan default.
+2. **Feature Constraints**: The model relies on a fixed set of features and may not capture all relevant factors
+   influencing loan default.
 
-3. **Demographic Bias**: There's a potential for bias if the training data is not representative of all demographic groups.
+3. **Demographic Bias**: There's a potential for bias if the training data is not representative of all demographic
+   groups.
 
 4. **Economic Volatility**: The model may struggle to adapt quickly to rapid economic changes.
 
@@ -388,10 +393,12 @@ While our loan default prediction model performs well in many scenarios, it's im
 
 To enhance our model's performance and reliability, we propose the following improvements:
 
-1. **Implement Automated Retraining**: 
+1. **Implement Automated Retraining**:
+
 ```python
 def should_retrain(drift_count, threshold=10):
     return drift_count > threshold
+
 
 if should_retrain(len(get_data_drift_features())):
     retrain_model()
@@ -399,23 +406,9 @@ if should_retrain(len(get_data_drift_features())):
 
 2. **Expand Feature Set**: Incorporate additional relevant features such as macroeconomic indicators.
 
-3. **Ensemble Methods**: Combine multiple models to improve robustness:
-```python
-from sklearn.ensemble import VotingClassifier
+3. **Explainable AI**: Implement SHAP (SHapley Additive exPlanations) values for better model interpretability.
 
-model1 = RandomForestClassifier()
-model2 = GradientBoostingClassifier()
-model3 = XGBClassifier()
-
-ensemble_model = VotingClassifier(
-    estimators=[('rf', model1), ('gb', model2), ('xgb', model3)],
-    voting='soft'
-)
-```
-
-4. **Explainable AI**: Implement SHAP (SHapley Additive exPlanations) values for better model interpretability.
-
-5. **Continuous Learning**: Develop a system for continuous model updating with appropriate safeguards.
+4. **Continuous Learning**: Develop a system for continuous model updating with appropriate safeguards.
 
 ## Business Implications
 
@@ -425,11 +418,14 @@ Our loan default prediction model and data drift detection system have several i
 
 2. **Operational Efficiency**: Automation of loan approval process can speed up decision-making and reduce manual work.
 
-3. **Customer Experience**: Faster loan approvals can improve customer satisfaction and potentially increase market share.
+3. **Customer Experience**: Faster loan approvals can improve customer satisfaction and potentially increase market
+   share.
 
-4. **Regulatory Compliance**: Better documentation and monitoring of the decision-making process can aid in regulatory compliance.
+4. **Regulatory Compliance**: Better documentation and monitoring of the decision-making process can aid in regulatory
+   compliance.
 
-5. **Strategic Planning**: Insights from the model and drift detection can inform long-term business strategy and product development.
+5. **Strategic Planning**: Insights from the model and drift detection can inform long-term business strategy and
+   product development.
 
 6. **Cost Savings**: Early detection of changing patterns can prevent losses due to outdated models.
 
@@ -442,11 +438,14 @@ def calculate_roi(prev_default_rate, new_default_rate, total_loan_amount):
     roi = (savings - implementation_cost) / implementation_cost * 100
     return f"{roi:.2f}%"
 
+
 roi = calculate_roi(0.05, 0.03, 10000000)
 print(f"Estimated ROI: {roi}")
 ```
 
-By continually monitoring and improving our model, we can maintain a competitive edge in the lending market while managing risk effectively.
+By continually monitoring and improving our model, we can maintain a competitive edge in the lending market while
+managing risk effectively.
+
 ```
 
 
