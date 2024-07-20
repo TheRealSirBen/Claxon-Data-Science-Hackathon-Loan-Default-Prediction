@@ -28,7 +28,30 @@ data. The model is crucial for risk management and strategic planning in financi
 ## Dataset Description
 
 The dataset contains historical information about borrowers, including various features that may impact the probability
-of default. (Detailed description of the dataset would be added here)
+of default.
+Here's an explanation of the variables in point form, using the column name and description:
+
+- `Unnamed: 0`: Index of the dataset, usually not used in analysis.
+- `loan_id`: Unique identifier for each loan.
+- `gender`: Gender of the applicant (e.g., male, female).
+- `disbursement_date`: Date when the loan was granted.
+- `currency`: Currency in which the loan amount is stated.
+- `country`: Country where the loan is issued.
+- `sex`: May be a duplicate of gender; indicates applicant's sex.
+- `is_employed`: Employment status of the applicant (e.g., employed, unemployed).
+- `job`: Type of employment or job title of the applicant.
+- `location`: Geographical location of the applicant.
+- `loan_amount`: Total amount of the loan requested.
+- `number_of_defaults`: Number of times the applicant has defaulted on previous loans.
+- `outstanding_balance`: Remaining balance on the loan at the time of assessment.
+- `interest_rate`: Interest rate applicable to the loan.
+- `age`: Age of the applicant at the time of loan application.
+- `number_of_defaults.1`: May be a duplicate of number of defaults; indicates defaults on loans.
+- `remaining term`: Remaining term of the loan in months.
+- `salary`: Monthly or annual salary of the applicant.
+- `marital_status`: Marital status of the applicant (e.g., single, married).
+- `age.1`: Could be a duplicate of age; indicates applicant's age.
+- `Loan Status`: Current status of the loan (e.g., approved, rejected, defaulted).
 
 ## Project Structure
 
@@ -54,60 +77,56 @@ of default. (Detailed description of the dataset would be added here)
 
 ```
 
-## Installation
 
-1. Clone the repository:
-   ```
 
-git clone <repository-url>
-cd <project-directory>
-
-   ```
-
-2. Create a virtual environment:
-   ```
-
-python -m venv venv
-source venv/bin/activate # On Windows use `venv\Scripts\activate`
-
-   ```
-
-3. Install the required packages:
-   ```
-
-pip install -r requirements.txt
-
-   ```
-
-## Usage
-
-1. To train the model:
-   - Open and run the `train_model.ipynb` notebook in Jupyter Lab or Jupyter Notebook.
-
-2. To start the FastAPI server:
-   ```
-
-uvicorn main:app --reload
-
-   ```
-
-3. Access the API documentation at `http://localhost:8000/docs`
-
-## Approach
+## Model building approach
 
 1. **Data Cleaning**: (Describe the data cleaning techniques used and justify decisions)
 
 2. **Exploratory Data Analysis (EDA)**: (Summarize key findings from EDA, including visualizations and interesting observations)
 
-3. **Feature Selection**: (Explain the feature selection methods and justify choices)
+3. **Feature Engineering**: (Explain the feature selection methods and justify choices)
 
-4. **Hyperparameter Tuning**: (Describe the hyperparameter tuning process and rationale)
+4. **Data preprocessing**
 
-5. **Cross Validation**: (Explain the cross-validation strategy and report evaluation metrics)
+5. **Hyperparameter Tuning and Model building**: (Discuss scaling and transformation techniques applied)
 
-6. **Feature Scaling and Transformation**: (Discuss scaling and transformation techniques applied)
+6. **Model evaluation**: (Discuss the model evaluation and model selection techniques)
 
-7. **Model Building**: (Describe the 5+ models trained, explain algorithm choices, and discuss assumptions and limitations)
+## API Endpoints
+
+1. Clone the repository:
+   ```
+    git clone https://github.com/TheRealSirBen/Claxon-Data-Science-Hackathon-Loan-Default-Prediction.git
+   ```
+
+2. Create a virtual environment:
+   1. On windows
+   ```
+   python -m venv venv
+   source venv/bin/activate # On Windows use `venv\Scripts\activate`
+   ```
+
+3. Navigate to api directory
+   ```
+    cd api
+   ```
+
+4. Install the required packages:
+   ```
+   pip install -r requirements.txt
+   ```
+
+## Usage
+
+1. To start the FastAPI server:
+   ```
+   uvicorn main:app --reload
+   ```
+
+2. Access the API home page at `http://localhost:8000`
+3. Access the API endpoints at page at `http://localhost:8000/docs`
+
 
 ## Model Performance
 
