@@ -113,7 +113,7 @@ Here's an explanation of the variables in point form, using the column name and 
 6. Select the `Restart kernel and run all cell` button, then click to execute all commands
 7. Wait for the program to request your input, thrice!
 
-For data expectations request
+
 ![Alt text](data expectaction request.png)
 
 2. For duplicate drop columns list
