@@ -35,15 +35,21 @@ of default. (Detailed description of the dataset would be added here)
 ```
 
 .
-├── data/ # Directory for dataset storage
-├── eda/ # EDA reports and visualizations
-├── transformations/ # Data transformation scripts
-├── cv_results/ # Cross-validation results
-├── model_fitting/ # Model fitting results
-├── deployed_models/ # Saved models for deployment
-├── train_model.ipynb # Jupyter notebook for model development
-├── main.py # FastAPI application
-├── requirements.txt # Project dependencies
+├── api/ # Directory for the FastAPI deployment project
+   ├── logs/ # API app logs and data drift logs
+   ├── prediction/ # Prediction results
+   ├── .env/ # Environment file
+   ├── _init.py # API app initialization file
+   ├── main.py # FastAPI application
+   ├── requirements.txt # Project dependencies
+├── model/ # Directory for machine learning model development
+   ├── cv_results/ # Cross-validation results
+   ├── data/ # Directory for dataset storage
+   ├── deployed_models/ # Saved models for deployment
+   ├── eda/ # EDA reports and visualizations
+   ├── model_fitting/ # Model fitting results
+   ├── transformations/ # Data transformation scripts
+      ├── train_model.ipynb # Jupyter notebook for model development
 └── README.md # Project documentation
 
 ```
