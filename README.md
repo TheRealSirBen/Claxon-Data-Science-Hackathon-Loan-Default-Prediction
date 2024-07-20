@@ -112,15 +112,19 @@ Here's an explanation of the variables in point form, using the column name and 
 6. Select the `Restart kernel and run all cell` button, then click to execute all commands
 7. Wait for the program to request your input, thrice!
    1. For data expectations request 
-   ![My Image](project navigation/data expectaction request.png)
+   ![My Image](data expectaction request.png)
 
    2. For duplicate drop columns list
-   ![My Image](project navigation/duplicate drop list.png)
+   ![My Image](duplicate drop list.png)
 
    3. For cell value corrections
-   ![My Image](project navigation/value corrections list.png)
+   ![My Image](value corrections list.png)
 
 8. Wait until the whole program concludes
+
+### Model Performance
+
+(Provide details on model evaluation, including performance metrics on the validation set)
 
 ## API endpoints
 
@@ -157,9 +161,7 @@ Here's an explanation of the variables in point form, using the column name and 
 3. Access the API endpoints at page at `http://localhost:8000/docs`
 
 
-## Model Performance
 
-(Provide details on model evaluation, including performance metrics on the validation set)
 
 ## API Endpoints
 
