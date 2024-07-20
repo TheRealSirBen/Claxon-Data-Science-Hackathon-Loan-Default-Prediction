@@ -114,26 +114,26 @@ Here's an explanation of the variables in point form, using the column name and 
 7. Wait for the program to request your input, thrice!
 
    1. For data expectations request
-      ![My Image](project_navigation/data_expectaction_request.png)
+![My Image](project_navigation/data_expectaction_request.png)
 
    2. For duplicate drop columns list
-      ![My Image](project_navigation/duplicate_drop_list.png)
+![My Image](project_navigation/duplicate_drop_list.png)
 
    3. For cell value corrections
-      ![My Image](project_navigation/value_corrections_list.png)
+![My Image](project_navigation/value_corrections_list.png)
 
 8. Wait until the whole program concludes
 
 ### Model Performance
 
    1. Evaluation set result
-      ![My Image](project_navigation/evaluation_result.png)
+![My Image](project_navigation/evaluation_result.png)
 
    2. Confusion result
-      ![My Image](project_navigation/confusion_matrix.png)
+![My Image](project_navigation/confusion_matrix.png)
 
    3. ROC Curve
-      ![My Image](project_navigation/roc_curve.png)
+![My Image](project_navigation/roc_curve.png)
 
 ## API endpoints
 
@@ -185,6 +185,9 @@ The FastAPI application in `main.py` serves the trained model. Key endpoints inc
 ## Model Analysis
 
 - Feature Importance: (Interpret model coefficients or feature importances)
+![My Image](project_navigation/feature_importance.png)
+
+
 - Error Analysis: (Investigate instances where the model performs poorly)
 - Bias Analysis: (Analyze the model for biases in predictions)
 - Interpretability: (Explain how the model is making predictions)
