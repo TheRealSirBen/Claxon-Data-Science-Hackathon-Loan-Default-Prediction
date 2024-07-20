@@ -113,20 +113,27 @@ Here's an explanation of the variables in point form, using the column name and 
 6. Select the `Restart kernel and run all cell` button, then click to execute all commands
 7. Wait for the program to request your input, thrice!
 
+   1. For data expectations request
+      ![My Image](project_navigation/data_expectaction_request.png)
 
-![Alt text](data_expectaction_request.png)
+   2. For duplicate drop columns list
+      ![My Image](project_navigation/duplicate_drop_list.png)
 
-2. For duplicate drop columns list
-   ![My Image](duplicate_drop_list.png)
-
-3. For cell value corrections
-   ![My Image](value_corrections_list.png)
+   3. For cell value corrections
+      ![My Image](project_navigation/value_corrections_list.png)
 
 8. Wait until the whole program concludes
 
 ### Model Performance
 
-(Provide details on model evaluation, including performance metrics on the validation set)
+   1. Evaluation set result
+      ![My Image](project_navigation/evaluation_result.png)
+
+   2. Confusion result
+      ![My Image](project_navigation/confusion_matrix.png)
+
+   3. ROC Curve
+      ![My Image](project_navigation/roc_curve.png)
 
 ## API endpoints
 
