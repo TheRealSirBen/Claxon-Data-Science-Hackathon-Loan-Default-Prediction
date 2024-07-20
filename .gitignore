@@ -1,10 +1,11 @@
 /model/.ipynb_checkpoints/
 /model/cv_results/
-/model/deployed_models/
 /model/model_fitting/
 /api/predictions/
+/.venv/
+/api/logs/
 /api/.env_dev
-
 
 *.log
 run*.ipynb
+sparing.py
