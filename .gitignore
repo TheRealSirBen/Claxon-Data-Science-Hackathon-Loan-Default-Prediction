@@ -1,0 +1,10 @@
+/model/.ipynb_checkpoints/
+/model/cv_results/
+/model/deployed_models/
+/model/model_fitting/
+
+
+/api/.env_dev
+
+
+*.log
