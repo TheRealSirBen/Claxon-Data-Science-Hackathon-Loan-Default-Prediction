@@ -77,7 +77,12 @@ Here's an explanation of the variables in point form, using the column name and 
 
 ```
 
+## Installation
 
+1. Clone the repository:
+   ```
+    git clone https://github.com/TheRealSirBen/Claxon-Data-Science-Hackathon-Loan-Default-Prediction.git
+   ```
 
 ## Model building approach
 
@@ -93,11 +98,23 @@ Here's an explanation of the variables in point form, using the column name and 
 
 6. **Model evaluation**: (Discuss the model evaluation and model selection techniques)
 
-## API Endpoints
+### Model training and building
 
-1. Clone the repository:
+1. Open anaconda prompt
+
+2. Open jupyter notebook. Run:
    ```
-    git clone https://github.com/TheRealSirBen/Claxon-Data-Science-Hackathon-Loan-Default-Prediction.git
+    jupyter notebook
+   ```
+3. Navigate to `Claxon-Data-Science-Hackathon-Loan-Default-Prediction` cloned dir
+4. Navigate to `model` dir
+5. Open `train_model.ipynb` file
+
+## API endpoints
+
+1. Navigate to api directory
+   ```
+    cd api
    ```
 
 2. Create a virtual environment:
