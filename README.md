@@ -1,4 +1,3 @@
-```markdown
 # Loan Default Prediction Model
 
 ## Data Science Competition 2024 Submission
@@ -143,4 +142,3 @@ The FastAPI application in `main.py` serves the trained model. Key endpoints inc
 ---
 
 This project was developed as part of the Data Science Competition 2024. For any questions or clarifications, please contact competitions@claxonactuaries.com.
-```
