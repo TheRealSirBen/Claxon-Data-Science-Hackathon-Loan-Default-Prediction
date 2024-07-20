@@ -88,7 +88,8 @@ Here's an explanation of the variables in point form, using the column name and 
 
 1. **Data Cleaning**: (Describe the data cleaning techniques used and justify decisions)
 
-2. **Exploratory Data Analysis (EDA)**: (Summarize key findings from EDA, including visualizations and interesting observations)
+2. **Exploratory Data Analysis (EDA)**: (Summarize key findings from EDA, including visualizations and interesting
+   observations)
 
 3. **Feature Engineering**: (Explain the feature selection methods and justify choices)
 
@@ -111,13 +112,14 @@ Here's an explanation of the variables in point form, using the column name and 
 5. Open `train_model.ipynb` file
 6. Select the `Restart kernel and run all cell` button, then click to execute all commands
 7. Wait for the program to request your input, thrice!
-   1. For data expectations request 
-   ![Alt text](data expectaction request.png)
 
-   2. For duplicate drop columns list
+For data expectations request
+![Alt text](data expectaction request.png)
+
+2. For duplicate drop columns list
    ![My Image](duplicate drop list.png)
 
-   3. For cell value corrections
+3. For cell value corrections
    ![My Image](value corrections list.png)
 
 8. Wait until the whole program concludes
@@ -134,7 +136,7 @@ Here's an explanation of the variables in point form, using the column name and 
    ```
 
 2. Create a virtual environment:
-   1. On windows
+    1. On windows
    ```
    python -m venv venv
    source venv/bin/activate # On Windows use `venv\Scripts\activate`
@@ -159,9 +161,6 @@ Here's an explanation of the variables in point form, using the column name and 
 
 2. Access the API home page at `http://localhost:8000`
 3. Access the API endpoints at page at `http://localhost:8000/docs`
-
-
-
 
 ## API Endpoints
 
@@ -197,4 +196,5 @@ The FastAPI application in `main.py` serves the trained model. Key endpoints inc
 
 ---
 
-This project was developed as part of the Data Science Competition 2024. For any questions or clarifications, please contact competitions@claxonactuaries.com.
+This project was developed as part of the Data Science Competition 2024. For any questions or clarifications, please
+contact competitions@claxonactuaries.com.
