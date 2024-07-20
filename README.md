@@ -109,6 +109,18 @@ Here's an explanation of the variables in point form, using the column name and 
 3. Navigate to `Claxon-Data-Science-Hackathon-Loan-Default-Prediction` cloned dir
 4. Navigate to `model` dir
 5. Open `train_model.ipynb` file
+6. Select the `Restart kernel and run all cell` button, then click to execute all commands
+7. Wait for the program to request your input, thrice!
+   1. For data expectations request 
+   ![My Image](project navigation/data expectaction request.png)
+
+   2. For duplicate drop columns list
+   ![My Image](project navigation/duplicate drop list.png)
+
+   3. For cell value corrections
+   ![My Image](project navigation/value corrections list.png)
+
+8. Wait until the whole program concludes
 
 ## API endpoints
 
