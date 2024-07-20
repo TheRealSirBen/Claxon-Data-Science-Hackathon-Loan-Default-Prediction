@@ -114,13 +114,13 @@ Here's an explanation of the variables in point form, using the column name and 
 7. Wait for the program to request your input, thrice!
 
 
-![Alt text](data expectaction request.png)
+![Alt text](data_expectaction_request.png)
 
 2. For duplicate drop columns list
-   ![My Image](duplicate drop list.png)
+   ![My Image](duplicate_drop_list.png)
 
 3. For cell value corrections
-   ![My Image](value corrections list.png)
+   ![My Image](value_corrections_list.png)
 
 8. Wait until the whole program concludes
 
