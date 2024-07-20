@@ -1,4 +1,6 @@
+import re
 from os import environ
+from typing import List
 
 import joblib
 from pandas import DataFrame
@@ -46,6 +48,16 @@ def compare_features(model, input_df: DataFrame) -> tuple[list, list]:
     missing_model_features = list(model_features_set - transformed_features_set)
 
     return new_features, missing_model_features
+
+
+def read_datadrift_log() -> List[str]:
+    unique_features = set()
+    with open("logs/datadrift.log", "r") as file:
+        for line in file:
+            match = re.search(r'new - (.+)$', line)
+            if match:
+                unique_features.add(match.group(1))
+    return list(unique_features)
 
 
 def predict_loan(input_data: DataFrame):

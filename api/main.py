@@ -1,5 +1,6 @@
 import time
 from os import environ
+from typing import List, Dict
 
 from fastapi import FastAPI
 from fastapi import File
@@ -17,6 +18,7 @@ from pandas import read_csv
 from _init_ import app_logger
 from helper import check_date_columns
 from helper import predict_loan
+from helper import read_datadrift_log
 from models import ModelInput
 from transformations import transform_data
 
@@ -138,8 +140,7 @@ async def download_csv_template():
 
 
 # Endpoint 4: Template CSV
-@app.get("/api/data-drift", tags=["Data management"])
-async def get_data_drift_logs():
-    template = DataFrame(columns=EXPECTED_COLUMNS).iloc[:5]
-    template.to_csv("template.csv", index=False)
-    return FileResponse("template.csv", filename="template.csv")
+@app.get("/api/data-drift", response_model=Dict[str, List[str]], tags=["Data management"])
+async def get_data_drift_features():
+    features = read_datadrift_log()
+    return {"message": "Successfully retrieved drift update", "data": features}
