@@ -1,4 +1,3 @@
-import sqlite3
 import time
 from os import environ
 
@@ -128,30 +127,6 @@ async def prediction_for_data_file(resp: Response, file: UploadFile = File(...))
         return FileResponse(output_filename, filename=output_filename)
     else:
         raise HTTPException(status_code=400, detail="Invalid file type. Only CSV files are supported.")
-
-
-# Endpoint 3: Database Connection
-@app.post("/api/predict/database-table", tags=["Predictions"])
-async def prediction_for_data_in_db_table():
-    conn = sqlite3.connect('test.db')
-    query = "SELECT * FROM loans"  # Assuming a table named 'loans'
-    df = pd.read_sql_query(query, conn)
-
-    # Validate columns
-    if list(df.columns) != EXPECTED_COLUMNS:
-        template = DataFrame(columns=EXPECTED_COLUMNS).iloc[:5]
-        template.to_csv("template.csv", index=False)
-        return FileResponse("template.csv", filename="template.csv")
-
-    # Run predictions
-    df['prediction'] = df.apply(predict, axis=1)
-
-    # Save the file with predictions
-    timestamp = time.strftime("%Y%m%d-%H%M%S")
-    output_filename = f"database_predictions_{timestamp}.csv"
-    df.to_csv(output_filename, index=False)
-
-    return FileResponse(output_filename, filename=output_filename)
 
 
 # Endpoint 4: Template CSV

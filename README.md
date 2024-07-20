@@ -126,18 +126,18 @@ Here's an explanation of the variables in point form, using the column name and 
 
 ### Model Performance
 
-   1. Evaluation set result
+1. Evaluation set result
 ![My Image](project_navigation/evaluation_result.png)
 
-   2. Confusion result
+2. Confusion result
 ![My Image](project_navigation/confusion_matrix.png)
 
-   3. ROC Curve
+3. ROC Curve
 ![My Image](project_navigation/roc_curve.png)
 
 ## API endpoints
 
-1. Navigate to api directory
+1. In terminal or cmd, navigate to api
    ```
     cd api
    ```
@@ -149,12 +149,7 @@ Here's an explanation of the variables in point form, using the column name and 
    source venv/bin/activate # On Windows use `venv\Scripts\activate`
    ```
 
-3. Navigate to api directory
-   ```
-    cd api
-   ```
-
-4. Install the required packages:
+3Install the required packages:
    ```
    pip install -r requirements.txt
    ```
@@ -163,7 +158,7 @@ Here's an explanation of the variables in point form, using the column name and 
 
 1. To start the FastAPI server:
    ```
-   uvicorn main:app --reload
+   uvicorn main:app --port 8000 
    ```
 
 2. Access the API home page at `http://localhost:8000`
@@ -173,10 +168,100 @@ Here's an explanation of the variables in point form, using the column name and 
 
 The FastAPI application in `main.py` serves the trained model. Key endpoints include:
 
-- `/predict`: Endpoint for model prediction
-- `/train`: Endpoint for model training
+- `/api/predict/entry`
+- `/api/predict/file`
+- `/api/download/csv-template`
+- `/api/data-drift`
 
-(Provide more detailed documentation on how to use these endpoints)
+## API Endpoints
+
+### Single Prediction
+
+This endpoint allows you to make a prediction for a single loan entry.
+
+- **URL**: `/api/predict/entry`
+- **Method**: POST
+- **Tags**: Predictions
+
+##### Request Body
+
+The request body should be a JSON object containing the loan entry data. The input should match the `ModelInput` schema, which includes all the necessary features for making a prediction.
+
+##### Response
+
+- **Success Response**:
+  - **Code**: 200 OK
+  - **Content**: 
+    ```json
+    {
+      "message": "Prediction successful",
+      "data": {
+        "prediction": 0.123 // Probability of loan default
+      }
+    }
+    ```
+
+- **Error Response**:
+  - **Code**: 400 BAD REQUEST
+  - **Content**: 
+    ```json
+    {
+      "message": "The [column_name] entry value(s) can not be converted to date"
+    }
+    ```
+  This error occurs when the date columns in the input data cannot be properly parsed.
+
+#### Functionality
+
+1. The endpoint receives loan data as input.
+2. It converts the input data into a DataFrame.
+3. It performs a date fitness check to ensure all date columns are properly formatted.
+4. If the date check fails, it returns a 400 error with details about which column(s) caused the issue.
+5. If the date check passes, it transforms the data using a `transform_data` function.
+6. It then uses a pre-trained model to predict the probability of loan default.
+7. Finally, it returns the prediction probability along with a success message.
+
+
+### File Upload Prediction
+
+This endpoint allows you to upload a CSV file containing multiple loan entries and receive predictions for all entries in the file.
+
+- **URL**: `/api/predict/file`
+- **Method**: POST
+- **Tags**: Predictions
+
+#### Request
+
+- **Content-Type**: multipart/form-data
+- **Body**: 
+  - `file`: A CSV file containing loan data (required)
+
+#### Response
+
+- **Success Response**:
+  - **Code**: 200 OK
+  - **Content**: A CSV file containing the original data along with predictions
+
+- **Error Responses**:
+  - **Code**: 400 BAD REQUEST
+    - If the file size exceeds the limit (50MB)
+    - If the file columns don't match the expected columns
+    - If date columns cannot be properly parsed
+    - If the file type is not CSV
+
+#### Functionality
+
+1. The endpoint receives a CSV file upload.
+2. It checks if the file is a CSV and if its size is within the limit (50MB).
+3. It reads the CSV file into a DataFrame.
+4. It validates that the columns in the file match the expected columns. If not, it returns a template CSV file.
+5. It performs a date fitness check to ensure all date columns are properly formatted.
+6. If the date check fails, it returns a 400 error with details about which column(s) caused the issue.
+7. If all checks pass, it transforms the data using a `transform_data` function.
+8. It then uses a pre-trained model to predict the probability of loan default for all entries.
+9. Finally, it saves the original data along with the predictions to a new CSV file and returns this file as the response.
+
+
 
 ## Data Drift Detection
 
