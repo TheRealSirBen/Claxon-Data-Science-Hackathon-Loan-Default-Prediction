@@ -2,8 +2,7 @@
 /model/cv_results/
 /model/deployed_models/
 /model/model_fitting/
-
-
+/api/predictions/
 /api/.env_dev
 
 

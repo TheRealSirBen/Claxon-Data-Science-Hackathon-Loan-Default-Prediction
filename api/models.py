@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 # Define the model input schema
 class ModelInput(BaseModel):
-    loan_id: int
+    loan_id: str
     gender: str
     disbursemet_date: str
     currency: str
@@ -22,4 +22,3 @@ class ModelInput(BaseModel):
     salary: float
     marital_status: str
     age_1: int
-    loan_status: str

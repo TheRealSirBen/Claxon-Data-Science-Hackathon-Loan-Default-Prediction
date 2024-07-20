@@ -1,5 +1,10 @@
+from os import environ
+
+import joblib
 from pandas import DataFrame
 from pandas import to_datetime
+
+from _init_ import datadrift_logger
 
 
 def check_date_columns(df: DataFrame, columns: list) -> list:
@@ -18,74 +23,55 @@ def check_date_columns(df: DataFrame, columns: list) -> list:
     return not_convertible_columns
 
 
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-import joblib
-import pandas as pd
-import numpy as np
+def compare_features(model, input_df: DataFrame) -> tuple[list, list]:
+    """
+    Compares features in the model with features in the transformed data.
+    """
+    # For models that use feature_names_in_
+    model_features: list = list()
+    if hasattr(model, 'feature_names_in_'):
+        model_features = model.feature_names_in_.tolist()
 
-app = FastAPI()
+    # For models that use feature_name_
+    if hasattr(model, 'feature_name_'):
+        # Retrieve feature names
+        model_features = model.feature_name_
 
-# Load the saved model
-model = joblib.load("path_to_your_model.joblib")
+    transformed_data_features = input_df.columns.tolist()
 
-# Define the input data model
-class LoanPredictionInput(BaseModel):
-    # Define your input features here
-    loan_id: str
-    gender: str
-    disbursemet_date: str
-    currency: str
-    country: str
-    sex: str
-    is_employed: bool
-    job: str
-    location: str
-    loan_amount: float
-    number_of_defaults: int
-    outstanding_balance: float
-    interest_rate: float
-    age: int
-    remaining_term: int
-    salary: float
-    marital_status: str
+    model_features_set = set(model_features)
+    transformed_features_set = set(transformed_data_features)
 
-# Define the output data model
-class LoanPredictionOutput(BaseModel):
-    prediction: float
-    prediction_probability: float
+    new_features = list(transformed_features_set - model_features_set)
+    missing_model_features = list(model_features_set - transformed_features_set)
 
-@app.post("/predict", response_model=LoanPredictionOutput)
-async def predict_loan(input_data: LoanPredictionInput):
-    try:
-        # Convert input data to DataFrame
-        input_df = pd.DataFrame([input_data.dict()])
+    return new_features, missing_model_features
 
-        # Preprocess the input data if necessary
-        # For example, you might need to encode categorical variables or scale numerical features
-        # This step depends on how your model expects the input
 
-        # Make prediction
-        prediction = model.predict(input_df)[0]
-        prediction_probability = model.predict_proba(input_df)[0][1]  # Assuming binary classification
+def predict_loan(input_data: DataFrame):
+    # Read model
+    model_pickle_file = '{}/{}'.format(environ.get('MODEL_DEPLOYMENT_DIR'), environ.get('ML_MODEL_FILE'))
+    with open(model_pickle_file, 'rb') as f:
+        model = joblib.load(f)
+    f.close()
 
-        return LoanPredictionOutput(
-            prediction=float(prediction),
-            prediction_probability=float(prediction_probability)
-        )
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    # Get feature landscape
+    new_features, missing_model_features = compare_features(model, input_data)
 
-# Optional: Add a root endpoint
-@app.get("/")
-async def root():
-    return {"message": "Welcome to the Loan Prediction API"}
+    # Treat model missing features
+    for feature in missing_model_features:
+        input_data[feature] = 0
 
-# Optional: Add a health check endpoint
-@app.get("/health")
-async def health_check():
-    return {"status": "healthy"}
+    # Treat new generated features
+    for feature in new_features:
+        input_data.drop(feature, axis=1, inplace=True)
+        datadrift_logger.info('new - {}'.format(feature))
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    # Run prediction for positive outcome
+    positive_probabilities = model.predict_proba(input_data)[:, 1]
+
+    # Create a DataFrame with the name 'probability'
+    result_df = DataFrame(positive_probabilities, columns=['probability'])
+
+    # Display the result
+    return result_df
