@@ -5,21 +5,6 @@
 This project is a submission for the Data Science Competition 2024, focusing on predicting the probability of default (
 PD) on loans using historical loan data.
 
-## Table of Contents
-
-1. [Project Overview](#project-overview)
-2. [Dataset Description](#dataset-description)
-3. [Project Structure](#project-structure)
-4. [Installation](#installation)
-5. [Usage](#usage)
-6. [Approach](#approach)
-7. [Model Performance](#model-performance)
-8. [API Endpoints](#api-endpoints)
-9. [Data Drift Detection](#data-drift-detection)
-10. [Model Analysis](#model-analysis)
-11. [Future Improvements](#future-improvements)
-12. [Business Implications](#business-implications)
-
 ## Project Overview
 
 This project aims to develop a predictive model that estimates the probability of default on loans using historical loan
